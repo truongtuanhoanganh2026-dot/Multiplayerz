@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#07100b">
+  <title>Zombie Outbreak — Multiplayer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <section id="lobby" class="screen active">
+      <div class="hero">
+        <div class="eyebrow">WEBRTC • 4 PLAYERS</div>
+        <h1>ZOMBIE<br><span>OUTBREAK</span></h1>
+        <p>Multiplayer zombie survival trên điện thoại.</p>
+      </div>
+
+      <div class="panel">
+        <button id="createBtn" class="primary big">🎮 TẠO PHÒNG</button>
+        <div class="joinRow">
+          <input id="roomInput" maxlength="6" placeholder="MÃ PHÒNG" autocomplete="off" inputmode="text">
+          <button id="joinBtn" class="secondary">THAM GIA</button>
+        </div>
+        <div id="status" class="status">Đang sẵn sàng...</div>
+      </div>
+
+      <div id="roomPanel" class="panel hidden">
+        <div class="roomHead">
+          <div>
+            <small>MÃ PHÒNG</small>
+            <strong id="roomCode">------</strong>
+          </div>
+          <button id="copyRoomBtn" class="iconBtn">📋</button>
+        </div>
+        <div id="players" class="players"></div>
+        <div class="roomActions">
+          <button id="startBtn" class="primary">BẮT ĐẦU</button>
+          <button id="leaveBtn" class="danger">RỜI PHÒNG</button>
+        </div>
+      </div>
+
+      <div class="help">
+        <b>Host</b> tạo phòng rồi gửi mã cho bạn bè. Người chơi thứ 2–4 nhập mã để tham gia.
+      </div>
+    </section>
+
+    <section id="game" class="screen">
+      <canvas id="gameCanvas"></canvas>
+      <div class="hud">
+        <div class="hudBox"><span>WAVE</span><b id="wave">1</b></div>
+        <div class="hudBox"><span>ZOMBIE</span><b id="zombies">0</b></div>
+        <div class="hudBox"><span>SỐNG</span><b id="alive">1</b></div>
+        <div class="hudBox"><span>ĐIỂM</span><b id="score">0</b></div>
+      </div>
+      <div id="feed" class="feed"></div>
+      <div id="mobileControls">
+        <div id="moveStick" class="stick"><div class="knob"></div><span>MOVE</span></div>
+        <div id="fireStick" class="stick fire"><div class="knob"></div><span>FIRE</span></div>
+      </div>
+      <button id="gameMenuBtn" class="gameMenu">☰</button>
+      <div id="gameMenu" class="gameMenuPanel hidden">
+        <button id="resumeBtn">▶ TIẾP TỤC</button>
+        <button id="copyGameRoomBtn">📋 SAO CHÉP MÃ PHÒNG</button>
+        <button id="leaveGameBtn" class="danger">🚪 RỜI TRẬN</button>
+      </div>
+    </section>
+
+    <div id="toast"></div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
