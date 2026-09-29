@@ -1,0 +1,5 @@
+const Fishing={
+active:false,tension:0,fish:null,cooldown:0,cast(){this.fish=Fish.random(Game.state.stage);this.tension=0;this.active=false;UI.fish(this.fish);},
+press(){if(this.cooldown>0||!this.fish)return;this.active=true},
+release(){this.active=false},
+update(dt){if(!this.fish)return;let f=this.fish;f.wiggle+=dt*(4+f.speed);f.x+=Math.sin(f.wiggle)*dt*.035*f.speed;f.x=Math.max(.35,Math.min(.88,f.x));if(this.active){let p=Player.power()*(1+Game.state.skill.frenzy*.12);let dmg=(11+p*7)*dt*(Math.random()<Player.rod().crit?.2:1);f.hp-=dmg;this.tension+=dt*(13+f.speed*7);Effects.hit(Math.max(1,Math.round(dmg)));if(Math.random()<dt*3)Audio.tick()}else{this.tension-=dt*18}this.tension=Math.max(0,Math.min(110,this.tension));if(this.tension>=100){Toast.show("💥 Dây quá căng! Cá thoát mất!");this.fish=null;this.cooldown=1.2;this.tension=0;Audio.fail();return}if(f.hp<=0){let reward=Math.round(f.reward*(1+Game.state.skill.lucky*.12));Game.state.money+=reward;Game.state.fishCaught++;Toast.show(`🎉 Bắt được ${f.name}! +${reward}💰`);Effects.money(reward);Audio.catch();this.fish=null;this.cooldown=1;Save.write();UI.renderAll();}},};

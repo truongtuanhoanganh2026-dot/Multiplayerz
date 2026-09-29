@@ -1,0 +1,1 @@
+const Shop={buy(i){let r=Rods[i];if(Game.state.rod>=i)return Toast.show("Đã sở hữu");if(Game.state.rod!==i-1)return Toast.show("🔒 Mua theo thứ tự");if(Game.state.money<r.price)return Toast.show("💰 Chưa đủ tiền");Game.state.money-=r.price;Game.state.rod=i;Save.write();Toast.show("🎣 Đã mua "+r.name);UI.renderAll()}};

@@ -1,5 +1,90 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="theme-color" content="#07100b"><title>Zombie Outbreak Online</title><link rel="stylesheet" href="style.css"></head><body>
-<section id="lobby"><div class="hero"><div>☣ ONLINE SURVIVAL</div><h1>ZOMBIE <b>OUTBREAK</b></h1><p>Sống sót cùng đồng đội • tối đa 4 người</p></div>
-<div class="card"><label>TÊN NGƯỜI CHƠI</label><input id="name" maxlength="18" value="Player" placeholder="Tên của bạn"><button id="create">🧟 TẠO PHÒNG</button><button id="showJoin" class="secondary">🔑 THAM GIA PHÒNG</button><div id="joinBox" class="hidden"><label>MÃ PHÒNG</label><input id="roomInput" maxlength="6" placeholder="ABC123"><button id="join">🚪 VÀO PHÒNG</button></div><div id="status">Đang kết nối máy chủ...</div></div>
-<div id="roomPanel" class="card hidden"><div class="roomHead"><div><small>MÃ PHÒNG</small><strong id="roomCode">------</strong></div><button id="copy">COPY</button></div><div id="players"></div><button id="start">▶ BẮT ĐẦU TRẬN</button><button id="leave" class="danger">RỜI PHÒNG</button><p>Gửi mã phòng cho bạn bè để cùng chơi.</p></div></section>
-<section id="game" class="hidden"><canvas id="canvas"></canvas><div class="hud"><span>❤️ <b id="hp">100</b></span><span>🎯 <b id="score">0</b></span><span>👥 <b id="count">1/4</b></span><span>WAVE <b id="wave">1</b></span><button id="pause">☰</button></div><div id="joy"><i></i></div><div id="shoot">KÉO ĐỂ NGẮM<br><b>THẢ ĐỂ BẮN</b></div><div id="overlay" class="hidden"><div><h2>⏸ GAME</h2><button id="resume">TIẾP TỤC</button><button id="back" class="secondary">VỀ SẢNH</button></div></div></section><script src="game.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071426">
+<title>Fishing Legends 2D</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+<header class="topbar">
+  <div class="brand">🎣 <b>FISHING LEGENDS</b><small>2D</small></div>
+  <div class="money">💰 <span id="money">0</span></div>
+</header>
+
+<main>
+<section id="lobby" class="screen active">
+  <div class="hero">
+    <div class="hero-water"></div>
+    <div class="title">FISHING<br><span>LEGENDS</span></div>
+    <div class="subtitle">Chinh phục đại dương • Nâng cần • Bắt cá khổng lồ</div>
+    <button id="startBtn" class="primary">🎣 BẮT ĐẦU CÂU</button>
+  </div>
+  <div class="menu-grid">
+    <button data-open="shop">🛒<b>CỬA HÀNG</b><small>Nâng cấp cần</small></button>
+    <button data-open="skills">⚡<b>KỸ NĂNG</b><small>Nâng skill</small></button>
+    <button data-open="stages">🌊<b>KHU VỰC</b><small>Mở vùng mới</small></button>
+    <button id="resetBtn">↻<b>ĐẶT LẠI</b><small>Xóa tiến trình</small></button>
+  </div>
+  <div class="progress-card">
+    <span>Tiến trình khu vực</span><b id="lobbyStage">Hồ Tân Thủ</b>
+    <div class="bar"><i id="stageProgress"></i></div>
+  </div>
+</section>
+
+<section id="game" class="screen">
+  <div class="game-head">
+    <button id="backLobby">←</button>
+    <div><b id="stageName">Hồ Tân Thủ</b><small id="fishName">Cá Rô</small></div>
+    <div class="hud-money">💰 <span id="gameMoney">0</span></div>
+  </div>
+  <canvas id="canvas"></canvas>
+  <div class="game-ui">
+    <div class="fish-hud">
+      <div><span id="fishLabel">🐟 Cá Rô</span><b id="fishHpText">0 / 0</b></div>
+      <div class="hpbar"><i id="fishHp"></i></div>
+    </div>
+    <div class="line-hud">
+      <div><span>🧵 Độ căng dây</span><b id="lineText">0%</b></div>
+      <div class="tension"><i id="lineBar"></i></div>
+    </div>
+    <div class="controls">
+      <button id="skillBtn">⚡ SKILL</button>
+      <button id="reelBtn" class="reel">🎣 GIỮ ĐỂ KÉO</button>
+    </div>
+    <div class="hint" id="gameHint">Giữ nút để kéo cá. Nhả ra khi dây quá căng!</div>
+  </div>
+</section>
+
+<section id="shop" class="screen panel-screen">
+  <div class="panel-head"><button class="closePanel">←</button><h2>🛒 Cửa hàng cần câu</h2></div>
+  <div id="shopList" class="cards"></div>
+</section>
+
+<section id="skills" class="screen panel-screen">
+  <div class="panel-head"><button class="closePanel">←</button><h2>⚡ Kỹ năng</h2></div>
+  <div id="skillList" class="cards"></div>
+</section>
+
+<section id="stages" class="screen panel-screen">
+  <div class="panel-head"><button class="closePanel">←</button><h2>🌊 Khu vực</h2></div>
+  <div id="stageList" class="cards"></div>
+</section>
+</main>
+
+<div id="toast"></div>
+<script src="js/save.js"></script>
+<script src="js/fish.js"></script>
+<script src="js/player.js"></script>
+<script src="js/fishing.js"></script>
+<script src="js/skills.js"></script>
+<script src="js/shop.js"></script>
+<script src="js/stages.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
