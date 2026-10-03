@@ -1,1 +1,0 @@
-const Audio={ctx:null,beep(f,d=.07){try{this.ctx??=new AudioContext();let o=this.ctx.createOscillator(),g=this.ctx.createGain();o.frequency.value=f;o.connect(g);g.connect(this.ctx.destination);g.gain.value=.025;o.start();o.stop(this.ctx.currentTime+d)}catch{}},tick(){this.beep(300)},catch(){this.beep(700,.12);setTimeout(()=>this.beep(950,.15),80)},fail(){this.beep(110,.18)}};
